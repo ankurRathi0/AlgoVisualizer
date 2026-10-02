@@ -1,9 +1,10 @@
 "use client";
 
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Grid } from "@react-three/drei";
+import { OrbitControls, Grid, Environment } from "@react-three/drei";
 import { EffectComposer, Bloom, Vignette } from "@react-three/postprocessing";
 import { Ball, type BallRole } from "./Ball";
+import { Backdrop } from "./Backdrop";
 import type { BubbleSortStepEvent } from "@/lib/algorithms/types";
 
 const SPACING = 1.5;
@@ -35,13 +36,16 @@ export function ArrayScene3D({ originalValues, ids, event, lockedFrom }: Props) 
   const centerOffset = ((n - 1) * SPACING) / 2;
 
   return (
-    <div className="h-80 w-full overflow-hidden rounded-lg border border-amber-500/20 bg-black">
+    <div className="h-96 w-full overflow-hidden rounded-lg border border-amber-500/20 bg-black">
       <Canvas camera={{ position: [0, 3.2, 7.5], fov: 45 }} shadows>
         <color attach="background" args={["#030201"]} />
-        <fog attach="fog" args={["#030201", 8, 18]} />
+        <fog attach="fog" args={["#030201", 10, 30]} />
         <ambientLight intensity={0.25} color="#3a2f1a" />
         <pointLight position={[0, 5, 4]} intensity={60} color="#ffcf5c" castShadow />
         <pointLight position={[-4, 2, -3]} intensity={15} color="#8a6a1f" />
+        <Environment preset="sunset" background={false} environmentIntensity={0.4} />
+
+        <Backdrop />
 
         <Grid
           position={[0, -0.75, 0]}
