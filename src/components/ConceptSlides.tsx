@@ -14,7 +14,7 @@ export function ConceptSlides({ slides, onDone }: Props) {
   const isLast = index === slides.length - 1;
 
   return (
-    <div className="flex flex-col gap-4 rounded-lg border border-zinc-800 bg-zinc-900 p-6">
+    <div className="flex flex-col gap-4 rounded-lg border border-amber-500/20 bg-zinc-900 p-6">
       <div className="flex items-center justify-between">
         <span className="text-xs font-medium text-zinc-500">
           {index + 1} / {slides.length}
@@ -27,21 +27,23 @@ export function ConceptSlides({ slides, onDone }: Props) {
           Skip to simulator
         </button>
       </div>
-      <h3 className="text-lg font-semibold text-zinc-100">{slide.title}</h3>
-      <p className="text-sm leading-relaxed text-zinc-300">{slide.body}</p>
+      <h3 className="text-lg font-semibold text-amber-300">{slide.title}</h3>
+      <p className="whitespace-pre-line text-sm leading-relaxed text-zinc-300">
+        {slide.body}
+      </p>
       <div className="flex justify-between pt-2">
         <button
           type="button"
           onClick={() => setIndex((i) => Math.max(0, i - 1))}
           disabled={index === 0}
-          className="rounded-md border border-zinc-800 px-3 py-1.5 text-sm text-zinc-300 hover:bg-zinc-800 disabled:opacity-30"
+          className="rounded-md border border-amber-500/20 px-3 py-1.5 text-sm text-zinc-300 hover:bg-amber-500/10 disabled:opacity-30"
         >
           ◀ Back
         </button>
         <button
           type="button"
           onClick={() => (isLast ? onDone() : setIndex((i) => i + 1))}
-          className="rounded-md bg-emerald-500 px-4 py-1.5 text-sm font-medium text-zinc-950 hover:bg-emerald-400"
+          className="rounded-md bg-amber-500 px-4 py-1.5 text-sm font-medium text-black hover:bg-amber-400"
         >
           {isLast ? "Start simulator" : "Next ▶"}
         </button>

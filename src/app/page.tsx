@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <main className="mx-auto flex max-w-3xl flex-1 flex-col gap-8 px-6 py-16">
       <div className="flex flex-col gap-3">
-        <span className="font-mono text-sm text-emerald-400">$ algovisualizer --init</span>
+        <span className="font-mono text-sm text-amber-400">$ algovisualizer --init</span>
         <h1 className="text-3xl font-bold text-zinc-100">
           Learn algorithms one step at a time.
         </h1>
@@ -21,7 +21,7 @@ export default function Home() {
         </h2>
         <Link
           href="/algorithms/bubble-sort"
-          className="flex items-center justify-between rounded-lg border border-zinc-800 bg-zinc-900 px-4 py-3 transition-colors hover:border-emerald-500"
+          className="flex items-center justify-between rounded-lg border border-amber-500/20 bg-zinc-900 px-4 py-3 transition-colors hover:border-amber-500"
         >
           <div>
             <p className="font-medium text-zinc-100">Bubble Sort</p>

@@ -1,12 +1,25 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import dynamic from "next/dynamic";
 import { runBubbleSort } from "@/lib/algorithms/bubbleSort";
 import { narrate } from "@/lib/algorithms/narration/bubbleSortNarration";
+import { elementIdsAtStep, lockedFromAtStep } from "@/lib/algorithms/elementIdentity";
 import type { NarrationStyle } from "@/lib/algorithms/types";
-import { ArrayView } from "./ArrayView";
 import { PseudocodePanel } from "./PseudocodePanel";
 import { StyleSelector } from "./StyleSelector";
+
+const ArrayScene3D = dynamic(
+  () => import("./three/ArrayScene3D").then((m) => m.ArrayScene3D),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="flex h-80 w-full items-center justify-center rounded-lg border border-amber-500/20 bg-black text-sm text-amber-500/60">
+        Loading scene…
+      </div>
+    ),
+  },
+);
 
 const DEFAULT_INPUT = [5, 2, 8, 1, 9, 3];
 
@@ -31,6 +44,14 @@ export function BubbleSortSimulator() {
   const run = useMemo(() => runBubbleSort(input), [input]);
   const totalSteps = run.steps.length;
   const current = run.steps[stepIndex];
+  const ids = useMemo(
+    () => elementIdsAtStep(run.steps, stepIndex),
+    [run, stepIndex],
+  );
+  const lockedFrom = useMemo(
+    () => lockedFromAtStep(run.steps, stepIndex),
+    [run, stepIndex],
+  );
 
   const applyCustomInput = () => {
     const parsed = parseInput(inputText);
@@ -58,12 +79,12 @@ export function BubbleSortSimulator() {
             <input
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
-              className="w-72 rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1.5 font-mono text-sm text-zinc-100 outline-none focus:border-emerald-500"
+              className="w-72 rounded-md border border-amber-500/20 bg-zinc-900 px-3 py-1.5 font-mono text-sm text-zinc-100 outline-none focus:border-amber-500"
             />
             <button
               type="button"
               onClick={applyCustomInput}
-              className="rounded-md bg-zinc-800 px-3 py-1.5 text-sm font-medium text-zinc-100 hover:bg-zinc-700"
+              className="rounded-md bg-amber-500 px-3 py-1.5 text-sm font-medium text-black hover:bg-amber-400"
             >
               Run
             </button>
@@ -73,11 +94,16 @@ export function BubbleSortSimulator() {
         <StyleSelector value={style} onChange={setStyle} />
       </div>
 
-      <ArrayView values={current.state} event={current.event} />
+      <ArrayScene3D
+        originalValues={input}
+        ids={ids}
+        event={current.event}
+        lockedFrom={lockedFrom}
+      />
 
       <PseudocodePanel lines={run.pseudocode} activeLines={current.pseudocodeLines} />
 
-      <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-4">
+      <div className="rounded-lg border border-amber-500/20 bg-zinc-900 p-4">
         <p className="text-sm text-zinc-200">{narrate(current.event, style)}</p>
       </div>
 
@@ -93,14 +119,14 @@ export function BubbleSortSimulator() {
           max={totalSteps - 1}
           value={stepIndex}
           onChange={(e) => goTo(Number(e.target.value))}
-          className="w-full accent-emerald-500"
+          className="w-full accent-amber-500"
         />
         <div className="flex gap-2">
           <button
             type="button"
             onClick={() => goTo(0)}
             disabled={stepIndex === 0}
-            className="rounded-md border border-zinc-800 px-3 py-1.5 text-sm text-zinc-300 hover:bg-zinc-800 disabled:opacity-30"
+            className="rounded-md border border-amber-500/20 px-3 py-1.5 text-sm text-zinc-300 hover:bg-amber-500/10 disabled:opacity-30"
           >
             ⏮ First
           </button>
@@ -108,7 +134,7 @@ export function BubbleSortSimulator() {
             type="button"
             onClick={() => goTo(stepIndex - 1)}
             disabled={stepIndex === 0}
-            className="rounded-md border border-zinc-800 px-3 py-1.5 text-sm text-zinc-300 hover:bg-zinc-800 disabled:opacity-30"
+            className="rounded-md border border-amber-500/20 px-3 py-1.5 text-sm text-zinc-300 hover:bg-amber-500/10 disabled:opacity-30"
           >
             ◀ Prev
           </button>
@@ -116,7 +142,7 @@ export function BubbleSortSimulator() {
             type="button"
             onClick={() => goTo(stepIndex + 1)}
             disabled={stepIndex === totalSteps - 1}
-            className="rounded-md border border-zinc-800 px-3 py-1.5 text-sm text-zinc-300 hover:bg-zinc-800 disabled:opacity-30"
+            className="rounded-md border border-amber-500/20 px-3 py-1.5 text-sm text-zinc-300 hover:bg-amber-500/10 disabled:opacity-30"
           >
             Next ▶
           </button>
@@ -124,7 +150,7 @@ export function BubbleSortSimulator() {
             type="button"
             onClick={() => goTo(totalSteps - 1)}
             disabled={stepIndex === totalSteps - 1}
-            className="rounded-md border border-zinc-800 px-3 py-1.5 text-sm text-zinc-300 hover:bg-zinc-800 disabled:opacity-30"
+            className="rounded-md border border-amber-500/20 px-3 py-1.5 text-sm text-zinc-300 hover:bg-amber-500/10 disabled:opacity-30"
           >
             Last ⏭
           </button>

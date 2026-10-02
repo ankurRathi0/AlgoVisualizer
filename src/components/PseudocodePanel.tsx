@@ -7,7 +7,7 @@ interface Props {
 
 export function PseudocodePanel({ lines, activeLines }: Props) {
   return (
-    <div className="rounded-lg border border-zinc-800 bg-zinc-950 p-4 font-mono text-sm">
+    <div className="rounded-lg border border-amber-500/20 bg-zinc-950 p-4 font-mono text-sm">
       {lines.map((l) => {
         const active = activeLines.includes(l.line);
         return (
@@ -15,7 +15,7 @@ export function PseudocodePanel({ lines, activeLines }: Props) {
             key={l.line}
             className={`rounded px-2 py-0.5 transition-colors ${
               active
-                ? "bg-emerald-500/15 text-emerald-300"
+                ? "bg-amber-500/15 text-amber-300"
                 : "text-zinc-400"
             }`}
           >
