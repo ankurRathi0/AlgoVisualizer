@@ -3,8 +3,8 @@
 import dynamic from "next/dynamic";
 import type { CompareEvent } from "@/lib/algorithms/types";
 
-const ArrayScene3D = dynamic(
-  () => import("./three/ArrayScene3D").then((m) => m.ArrayScene3D),
+const Array3D = dynamic(
+  () => import("./three/Array3D").then((m) => m.Array3D),
   { ssr: false },
 );
 
@@ -20,7 +20,7 @@ const HERO_EVENT: CompareEvent = {
 
 export function HeroVisual() {
   return (
-    <ArrayScene3D
+    <Array3D
       originalValues={HERO_VALUES}
       ids={HERO_VALUES.map((_, idx) => idx)}
       event={HERO_EVENT}

@@ -31,7 +31,7 @@ function roleForSlot(
   return "idle";
 }
 
-export function ArrayScene3D({ originalValues, ids, event, lockedFrom }: Props) {
+export function Array3D({ originalValues, ids, event, lockedFrom }: Props) {
   const n = ids.length;
   const centerOffset = ((n - 1) * SPACING) / 2;
 

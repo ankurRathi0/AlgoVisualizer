@@ -8,9 +8,10 @@ import { elementIdsAtStep, lockedFromAtStep } from "@/lib/algorithms/elementIden
 import type { NarrationStyle } from "@/lib/algorithms/types";
 import { PseudocodePanel } from "./PseudocodePanel";
 import { StyleSelector } from "./StyleSelector";
+import { Button } from "./ui/button";
 
-const ArrayScene3D = dynamic(
-  () => import("./three/ArrayScene3D").then((m) => m.ArrayScene3D),
+const Array3D = dynamic(
+  () => import("./three/Array3D").then((m) => m.Array3D),
   {
     ssr: false,
     loading: () => (
@@ -81,20 +82,16 @@ export function BubbleSortSimulator() {
               onChange={(e) => setInputText(e.target.value)}
               className="w-72 rounded-md border border-amber-500/20 bg-zinc-900 px-3 py-1.5 font-mono text-sm text-zinc-100 outline-none focus:border-amber-500"
             />
-            <button
-              type="button"
-              onClick={applyCustomInput}
-              className="rounded-md bg-amber-500 px-3 py-1.5 text-sm font-medium text-black hover:bg-amber-400"
-            >
+            <Button type="button" onClick={applyCustomInput}>
               Run
-            </button>
+            </Button>
           </div>
           {inputError && <span className="text-xs text-red-400">{inputError}</span>}
         </div>
         <StyleSelector value={style} onChange={setStyle} />
       </div>
 
-      <ArrayScene3D
+      <Array3D
         originalValues={input}
         ids={ids}
         event={current.event}
@@ -122,38 +119,33 @@ export function BubbleSortSimulator() {
           className="w-full accent-amber-500"
         />
         <div className="flex gap-2">
-          <button
-            type="button"
-            onClick={() => goTo(0)}
-            disabled={stepIndex === 0}
-            className="rounded-md border border-amber-500/20 px-3 py-1.5 text-sm text-zinc-300 hover:bg-amber-500/10 disabled:opacity-30"
-          >
+          <Button type="button" variant="outline" onClick={() => goTo(0)} disabled={stepIndex === 0}>
             ⏮ First
-          </button>
-          <button
+          </Button>
+          <Button
             type="button"
+            variant="outline"
             onClick={() => goTo(stepIndex - 1)}
             disabled={stepIndex === 0}
-            className="rounded-md border border-amber-500/20 px-3 py-1.5 text-sm text-zinc-300 hover:bg-amber-500/10 disabled:opacity-30"
           >
             ◀ Prev
-          </button>
-          <button
+          </Button>
+          <Button
             type="button"
+            variant="outline"
             onClick={() => goTo(stepIndex + 1)}
             disabled={stepIndex === totalSteps - 1}
-            className="rounded-md border border-amber-500/20 px-3 py-1.5 text-sm text-zinc-300 hover:bg-amber-500/10 disabled:opacity-30"
           >
             Next ▶
-          </button>
-          <button
+          </Button>
+          <Button
             type="button"
+            variant="outline"
             onClick={() => goTo(totalSteps - 1)}
             disabled={stepIndex === totalSteps - 1}
-            className="rounded-md border border-amber-500/20 px-3 py-1.5 text-sm text-zinc-300 hover:bg-amber-500/10 disabled:opacity-30"
           >
             Last ⏭
-          </button>
+          </Button>
         </div>
       </div>
     </div>
