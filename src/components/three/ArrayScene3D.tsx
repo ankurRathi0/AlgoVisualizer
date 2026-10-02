@@ -2,6 +2,7 @@
 
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Grid } from "@react-three/drei";
+import { EffectComposer, Bloom, Vignette } from "@react-three/postprocessing";
 import { Ball, type BallRole } from "./Ball";
 import type { BubbleSortStepEvent } from "@/lib/algorithms/types";
 
@@ -70,6 +71,16 @@ export function ArrayScene3D({ originalValues, ids, event, lockedFrom }: Props) 
           minAzimuthAngle={-Math.PI / 5}
           maxAzimuthAngle={Math.PI / 5}
         />
+
+        <EffectComposer>
+          <Bloom
+            intensity={1.1}
+            luminanceThreshold={0.15}
+            luminanceSmoothing={0.3}
+            mipmapBlur
+          />
+          <Vignette eskil={false} offset={0.15} darkness={0.9} />
+        </EffectComposer>
       </Canvas>
     </div>
   );

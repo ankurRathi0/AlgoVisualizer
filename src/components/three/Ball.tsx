@@ -8,11 +8,11 @@ import * as THREE from "three";
 export type BallRole = "idle" | "compare" | "swap" | "no-swap" | "locked";
 
 const ROLE_STYLE: Record<BallRole, { color: string; emissive: string; intensity: number }> = {
-  idle: { color: "#1c1917", emissive: "#f5c451", intensity: 0 },
-  compare: { color: "#2a2520", emissive: "#f5c451", intensity: 0.5 },
-  swap: { color: "#3a2f1a", emissive: "#ffcf5c", intensity: 1.3 },
-  "no-swap": { color: "#211e1a", emissive: "#f5c451", intensity: 0.18 },
-  locked: { color: "#27210f", emissive: "#f5c451", intensity: 0.55 },
+  idle: { color: "#141210", emissive: "#f5c451", intensity: 0.45 },
+  compare: { color: "#2a2520", emissive: "#f5c451", intensity: 1.1 },
+  swap: { color: "#3a2f1a", emissive: "#ffcf5c", intensity: 2.2 },
+  "no-swap": { color: "#211e1a", emissive: "#f5c451", intensity: 0.6 },
+  locked: { color: "#27210f", emissive: "#f5c451", intensity: 1.3 },
 };
 
 const ARC_DURATION = 0.45; // seconds
